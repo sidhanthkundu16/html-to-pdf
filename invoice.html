@@ -1,167 +1,1082 @@
-<style>
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        border: 1px solid #eee;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-    }
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet"> -->
+    <style>
+    </style>
+    <title>Invoice</title>
+    <style>
+        /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
 
-    .invoice-box table td {
-        padding: 5px;
-        vertical-align: top;
-    }
-
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
-        color: #333;
-    }
-
-    .invoice-box table tr.information table td {
-        padding-bottom: 40px;
-    }
-
-    .invoice-box table tr.heading td {
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-    }
-
-    .invoice-box table tr.details td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.item td {
-        border-bottom: 1px solid #eee;
-    }
-
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-
-    .invoice-box table tr.total td:nth-child(2) {
-        font-weight: bold;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td {
-            width: 100%;
-            display: block;
-            text-align: center;
+        * {
+            margin: 0px;
+            padding: 0px;
         }
 
-        .invoice-box table tr.information table td {
-            width: 100%;
-            display: block;
-            text-align: center;
+        body {
+            font-family: "Arial", sans-serif;
         }
-    }
 
-    /** RTL **/
-    .rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
+        .container {
+            padding-top: 46px;
+        }
 
-    .rtl table {
-        text-align: right;
-    }
+        .container .top-section {
+            box-sizing: border-box;
+        }
 
-    .rtl table tr td:nth-child(2) {
-        text-align: left;
-    }
-</style>
+        .top-table {
+            border-spacing: 0px;
+            width: 100%;
+        }
 
-<div>
-    {{#if isWatermark}}
-    <div style="border-width: 6px;border-style: solid; border-color: #008000;border-radius: 8px; color: #008000; opacity:0.6; position: absolute; z-index: 1; left:40%; top:30%; font-size: 60pt;-webkit-transform: rotate(-45deg);-ms-transform: rotate(-45deg);transform: rotate(-45deg); font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
-        PAID </div>
-    {{/if}}
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                            </td>
-                            <td>
-                                Invoice #: 001<br>
-                                Created: Wed Oct 3, 2018<br>
-                                Due: Wed Oct 10, 2018
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+        .top-left-section {
+            width: 470px;
+            padding: 0px;
+            padding-left: 64px;
+        }
 
-            <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-                                Sparksuite, Inc.<br>
-                                12345 Sunny Road<br>
-                                Sunnyville, CA 12345
-                            </td>
+        .top-right-section {
+            padding-right: 64px;
+            padding-left: 32px;
+        }
 
-                            <td>
-                                Sam Corp.<br>
-                                Sam Sam<br>
-                                sam@example.com
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+        .table-section {
+            border-bottom: 1px solid #000000;
+            padding-bottom: 18px;
+            padding-top: 18px;
+            vertical-align: top;
+            /* width: 50%; */
+        }
 
-            <tr class="heading">
-                <td>
-                    Item
-                </td>
+        .table-section2 {
+            /* border-bottom: 1px solid #000000; */
+            padding-bottom: 18px;
+            /* padding-top: 18px; */
+            vertical-align: top;
+            width: 33.3%;
+        }
 
-                <td>
-                    Price
-                </td>
-            </tr>
+        .top-left-heading h1 {
+            font-size: 44px;
+            color: #11181C;
+            margin: 0px;
+            line-height: 59px;
+            padding-bottom: 8px;
+            font-weight: 700;
+        }
 
-            {{#each items}}
-            <tr class="item">
-                <td>
-                    {{name}}
-                </td>
-                <td>
-                    ${{price}}
-                </td>
-            </tr>
-            {{/each}}
+        .top-left-heading h6 {
+            font-size: 16px;
+            line-height: 21px;
+            color: #11181c;
+            padding-bottom: 16px;
+            font-weight: 700;
+        }
 
-            <tr class="total">
-                <td></td>
+        .date-details {
+            padding-right: 16px;
+        }
 
-                <td>
-                    Total: $ {{total}}
-                </td>
+        .right-type {
+            padding-left: 16px;
+            padding-right: 12px;
+            border-left: 1px solid #000000;
+        }
+
+        .left-type {
+            padding-right: 12px;
+        }
+
+        .date-heading {
+            padding-bottom: 8px;
+        }
+
+
+        .invoice-date-terms {
+            padding: 0px;
+        }
+
+        .invoice-date {
+            padding: 0px;
+        }
+
+        .invoice-date .date h6 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+        }
+
+        .date-type {
+            border-spacing: 0px;
+            padding-bottom: 8px;
+        }
+
+        .date-type h6 {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #11181C;
+            max-width: 170px;
+        }
+
+        .date-terms-line {
+            width: 0px;
+            border: 1px solid #f1f3f5;
+            height: 100%;
+        }
+
+        .terms h6 {
+
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+        }
+
+        .place-of-supply h4 {
+
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 21px;
+            color: #11181c;
+        }
+
+        .company-name {
+            padding-bottom: 8px;
+            font-weight: 800;
+            font-size: 24px;
+            line-height: 32px;
+            color: #000000;
+        }
+
+        .gst-no {
+            font-weight: 700;
+            font-size: 16px;
+            padding-bottom: 8px;
+            line-height: 21px;
+            color: #11181c
+        }
+
+        .company-address {
+
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+        }
+
+        .container .line {
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #000000;
+            padding-bottom: 4px;
+        }
+
+        .address-table {
+            width: 100%;
+            border-spacing: 0px;
+        }
+
+        .bill-to {
+            box-sizing: border-box;
+            gap: 4px;
+            padding-left: 64px;
+        }
+
+        /* .billing-address {
+            width: 400px;
+        } */
+
+        /* .shipping-address {
+            width: 400px;
+        } */
+
+        .billing-address h5 {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            width: max-content;
+        }
+
+        .shipping-address h5 {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            width: max-content;
+        }
+
+        #ship-to-border {
+            border-left: 1px solid #000000;
+            padding-left: 16px;
+        }
+
+        .billing-heading h4 {
+            font-weight: 700;
+            font-size: 21px;
+            padding-bottom: 4px;
+            line-height: 37px;
+            color: #000000;
+        }
+
+        .billing-address h6 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #11181c;
+        }
+
+        .shipping-heading h4 {
+            font-weight: 700;
+            font-size: 21px;
+            line-height: 37px;
+            color: #000000;
+            padding-bottom: 4px;
+        }
+
+        .shipping-address h6 {
+
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #11181c;
+        }
+
+        .container .order-detail {
+            padding: 0px 64px;
+        }
+
+        /* Table */
+        .container .order-detail table {
+            width: 100%;
+            border-spacing: 0px;
+        }
+
+        .container .order-detail table th {
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            line-height: 21px;
+            border-right: 1px solid #ffffff !important;
+        }
+
+        .container table tr th {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .order-detail .item-name {
+            padding: 8px 8px;
+        }
+
+        .item-name img {
+            width: 180px;
+        }
+
+        .item-table {
+            border: 0px !important;
+            border-spacing: 0px;
+        }
+
+        .serial-no {
+            float: left;
+            padding-left: 4px;
+        }
+
+        .item-table td {
+            border: 0px !important;
+        }
+
+        .order-detail .item-name h6 {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 21px;
+            float: left;
+            padding-right: 8px;
+        }
+
+        .order-name h6 {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+        }
+
+        .order-name span h6 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+        }
+
+        .order-detail .item-name h5 {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 21px;
+        }
+
+        #serial-no {
+            border-right: 0px !important;
+            text-align: left;
+        }
+
+        .image-prod {
+            text-align: center;
+            width: 186px;
+        }
+
+        .product-img {
+            padding: 8px 8px 8px 0px;
+            width: auto;
+            height: auto;
+            max-width: 186px;
+            max-height: 186px;
+        }
+
+        .details-index {
+            border-left: 1px solid #000000;
+            border-right: 0px !important;
+        }
+
+        .details-index h5 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            padding: 8px 4px;
+        }
+
+        .number-value {
+            text-align: right !important;
+            min-width: max-content;
+        }
+
+        .number-value h5 {
+            font-weight: 400;
+            min-width: max-content;
+            font-size: 16px;
+            line-height: 21px;
+            padding: 8px 4px;
+        }
+
+        .order-detail .details h5 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            padding: 8px 4px;
+        }
+
+        .order-detail .heading-table th {
+            padding: 7px 6px;
+            padding-bottom: 6px;
+        }
+
+
+        .elements .item-img {
+            width: 180px;
+            border-left: 1px solid #000000;
+        }
+
+        .elements {
+            width: 100%;
+        }
+
+        .elements .order-name {
+            width: 208px;
+            text-align: left !important;
+            padding: 8px;
+        }
+
+        .details {
+            text-align: left;
+        }
+
+        .order-detail .elements td {
+            /* text-align: left; */
+            vertical-align: top;
+            border-right: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+        }
+
+        #total-heading {
+            border-right: 1px solid #000000 !important;
+        }
+
+        /* Total Summary */
+        .container .invoice-total {
+            padding: 0px 63.5px;
+            page-break-inside: avoid;
+        }
+
+        .invoice-total .total-table {
+            width: 100%;
+        }
+
+        .align .total-left {
+            gap: 8px;
+        }
+
+        .total-left .inside-table h5 {
+            font-weight: 400;
+            font-size: 16px;
+            padding-bottom: 4px;
+            line-height: 21px;
+        }
+
+        .total-left .inside-table h6 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 19px;
+            margin-left: 16px;
+            width: 370px;
+        }
+
+        .thanks {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            margin-left: 4px;
+        }
+
+        .inside-table-right {
+            width: 100%;
+            min-width: 300px;
+            background: #f8f9fa;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            padding-top: 22px;
+            padding-bottom: 10px;
+            padding-right: 6px;
+            border-spacing: 0px;
+        }
+
+        .inside-table-right tr {
+            text-align: right;
+        }
+
+        .total-right {
+            min-width: 300px;
+        }
+
+        .inside-table tr {
+            vertical-align: top;
+        }
+
+        .total-right .inside-table-right tr td h5 {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+            padding-bottom: 8px;
+        }
+
+        .total-right .inside-table-right tr td h4 {
+            font-weight: bold;
+            font-size: 16px;
+            padding-bottom: 8px;
+            line-height: 21px;
+            color: #11181c;
+        }
+
+        .footer-table {
+            border-spacing: 4px;
+            padding-left: 16px;
+        }
+
+        .footer-table td {
+            vertical-align: top;
+        }
+
+        .footer-table td h4 {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #000000;
+            width: 90px;
+        }
+
+        .footer-table td h3 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 19px;
+            color: #000000;
+            margin-left: 16px;
+            word-break: break-word;
+        }
+
+        .container .signature {
+            padding: 0px 64px;
+            text-align: end;
+            border-bottom: 1px solid #000000;
+            page-break-inside: avoid;
+        }
+
+        .container .signature h1 {
+            font-weight: 700;
+            font-size: 18px;
+            padding-bottom: 2px;
+            line-height: 24px;
+            color: #000000;
+        }
+
+        .container .last-line {
+            width: 100%;
+            height: 0px;
+            border-top: 1px solid #000000;
+        }
+
+        /* Barcode-section */
+        .container .barcode-section {
+            padding: 0px 64px 0px 64px;
+        }
+
+        /* .container .barcode-section .barcode-inside {
+            background: #f8f9fa;
+            border: 1px solid #f1f3f5;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 13px 0px 13px 13px;
+            align-items: center;
+            gap: 16px;
+        } */
+
+        .barcode-inside .text-right {
+            gap: 16px;
+        }
+
+        .bygovt h2 {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #000000;
+            padding-left: 20px;
+        }
+
+        .inside-table {
+            border-spacing: 4px;
+        }
+
+        .terms {
+            padding: 0px 64px;
+            margin-left: 6px;
+            page-break-inside: avoid;
+        }
+
+        .delivery-terms {
+            gap: 8px;
+        }
+
+        .delivery-terms h3 {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 133%;
+            padding-bottom: 8px;
+            color: #000000;
+        }
+
+        .delivery-terms h4 {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 21px;
+            color: #000000;
+            padding-bottom: 32px;
+            width: 660px;
+        }
+
+        .fa {
+            font-weight: inherit;
+        }
+
+        .elements {
+            page-break-inside: avoid;
+        }
+
+        .date-type tr {
+            vertical-align: top;
+        }
+
+        .qr-image {
+            width: 240px;
+            height: 240px;
+        }
+
+        .container .barcode-section {
+            page-break-inside: avoid;
+        }
+
+        .container .barcode-section .barcode-inside tbody {
+            background: #f8f9fa;
+            border: 1px solid #f1f3f5;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .terms {
+            page-break-inside: avoid;
+        }
+
+        .container .signature {
+            page-break-inside: avoid;
+        }
+
+        .number-value h5 {
+            word-break: keep-all;
+        }
+
+        .container .order-detail table th h3 {
+            font-size: inherit;
+        }
+
+        .rupees {
+            padding: 0px 2px;
+        }
+
+        @media print {
+            @page {
+                padding-bottom: 64px;
+                page-break-inside: avoid;
+            }
+
+
+            .container {
+                width: 1171px;
+            }
+
+            .container .barcode-section {
+                page-break-inside: avoid;
+            }
+
+            .terms {
+                page-break-inside: avoid;
+            }
+
+            .container .signature {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table class="top-table">
+            <div class="top-section">
+                <tr>
+                    <td class="table-section">
+                        <div class="top-left-section">
+                            <div class="top-left-heading">
+                                <h1>Tax Invoice</h1>
+                                <h6>Invoice No : {{invoice_number}}</h6>
+                            </div>
+                            <div class="top-bottom-heading">
+                                <table class="date-type">
+                                    <tr class="table-row">
+                                        <td class="left-type">
+                                            <h6 class="date-heading">Invoice Date :</h6>
+                                        </td>
+                                        <td class="date-details">
+                                            <h6 class="date-heading">{{date}}</h6>
+                                        </td>
+                                        <td class="right-type">
+                                            <h6 class="date-heading">Terms :</h6>
+                                        </td>
+                                        <td>
+                                            <h6 class="date-heading">{{payment_terms_label}}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <span class="straight-line"></span>
+                                    </tr>
+                                    <tr class="right-detail">
+                                        <td class="left-type">
+                                            <h6>Due Date :</h6>
+                                        </td>
+                                        <td class="date-details">
+                                            <h6>{{due_date}}</h6>
+                                        </td>
+                                        <td class="right-type">
+                                            <h6>P.O. :</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{reference_number}}</h6>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div
+                                    style="font-weight: 400; font-size: 16px; line-height: 133%; padding-bottom: 10px;">
+                                    Payment Mode : {{payment_mode}}
+                                </div>
+                                <div class="place-of-supply">
+                                    <h4>Place of Supply : {{place_of_supply}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table-section">
+                        <div class="top-right-section">
+                            <div class="company-name-section">
+                                <h4 class="company-name">{{supplier_details.supplier_name}}</h4>
+                                <h4 class="gst-no">GSTIN - {{supplier_details.gst_no}}</h4>
+                                <h3 class="company-address">{{supplier_details.billing_address.street}}
+                                    <br>{{supplier_details.billing_address.city}},
+                                    {{supplier_details.billing_address.state}},
+                                    {{supplier_details.billing_address.country}} -
+                                    {{supplier_details.billing_address.zip}}
+                                </h3>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </div>
+        </table>
+        <table style="border-spacing: 0px; margin-top: 8px;">
+            <tr>
+                <div class="shipping-detail">
+                    <td class="table-section2">
+                        <div class="bill-to">
+                            <div class="billing-heading">
+                                <h4>Bill To</h4>
+                            </div>
+                            <div class="billing-address">
+                                <h5>{{customer_details.billing_address.name}}</h5>
+                                <h6>{{customer_details.billing_address.street}}</h6>
+                                <h6>{{customer_details.billing_address.street2}}</h6>
+                                <h6>{{customer_details.billing_address.city}}</h6>
+                                <h6>{{customer_details.billing_address.zip}}</h6>
+                                <h6>{{customer_details.billing_address.state}}</h6>
+                                <h6>{{customer_details.billing_address.country}}</h6>
+                                <h6>GSTIN {{customer_details.billing_address.gst_no}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table-section2" id="ship-to-border" style="padding-right: 8px;">
+                        <div class="ship-to">
+                            <div class="shipping-heading">
+                                <h4>Ship To</h4>
+                            </div>
+                            <div class="shipping-address">
+                                <h5>{{customer_details.shipping_address.name}}</h5>
+                                <h6>{{customer_details.shipping_address.street}}</h6>
+                                <h6>{{customer_details.shipping_address.street2}}</h6>
+                                <h6>{{customer_details.shipping_address.city}}</h6>
+                                <h6>{{customer_details.shipping_address.zip}}</h6>
+                                <h6>{{customer_details.shipping_address.state}}</h6>
+                                <h6>{{customer_details.shipping_address.country}}</h6>
+                                <h6>GSTIN {{customer_details.shipping_address.gst_no}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table-section2" id="ship-to-border" style="padding-right: 64px;">
+                        <div class="ship-to">
+                            <div class="shipping-heading">
+                                <h4>Transportation Details</h4>
+                            </div>
+                            <div class="shipping-address">
+                                <h5>Transporter Name : {{transporter.name}}</h5>
+                                <h6>Vehicle Number : {{transporter.vehicle_number}}</h6>
+                                <h6>Dispatch Doc Number (AWB) : {{transporter.dispatch_number}}</h6>
+                                <h6>Eway Bill No : {{transporter.eway_bill}}</h6>
+                                <h6>No. of Boxes : {{transporter.box_number}}</h6>
+                                <h6>Weight of Shipment : {{transporter.shipment_weight}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                </div>
             </tr>
         </table>
+
+        <div style="border-top: 1px solid #000000; 
+            width: 100%; 
+            margin-top: 8px; 
+            padding: 8px 64px; 
+            box-sizing: border-box;
+            padding-top: 8px;
+            border-bottom: 1px solid #000000; ">
+            <div style="padding-bottom: 4px;">
+                <h3 style="font-weight: 700; font-size: 20px; line-height: 133%;">
+                    Box Dimensions
+                </h3>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 8px; column-gap: 4px;">
+                {{#each boxes}}
+                <div>
+                    <h2 style="font-weight: 500; font-size: 14px; line-height: 19px; color: #11181C;">
+                        {{length}}(L) × {{breadth}}(B) × {{height}}(H) = 999Boxes
+                    </h2>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="order-detail">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="10" style="height:64px ; background-color: transparent;">
+                            &nbsp;
+                        </th>
+                    </tr>
+                    <tr class="heading-table">
+                        <th id="serial-no">#</th>
+                        <th>Image</th>
+                        <th>Item Name, SKU & Brand</th>
+                        <th>HSN/SAC</th>
+                        <th>EAN</th>
+                        <th>Qty</th>
+                        <th>Rate <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
+                        </th>
+                        <th>IGST %</th>
+                        <th>IGST Amt. <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
+                        </th>
+                        <th id="total-heading">Amount <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
+                        </th>
+                    </tr>
+                </thead>
+                {{#each items}}
+                <tr class="elements">
+                    <td class="details-index">
+                        <h5>{{this.index}}</h5>
+                    </td>
+                    <td class="image-prod">
+                        <img src="{{{this.img_url}}}" alt="" class="product-img">
+                    </td>
+                    <td class="order-name">
+                        <div>
+                            <h6>
+                                {{this.name}}
+                            </h6>
+                            <span>
+                                <h6>
+                                    {{this.sku}}
+                                    <br>
+                                    {{this.tag_name}}
+                                </h6>
+                            </span>
+                        </div>
+
+                    </td>
+                    <td class="details">
+                        <h5>{{this.hsn_or_sac}}</h5>
+                    </td>
+                    <td class="details">
+                        <h5>{{this.ean}}</h5>
+                    </td>
+                    <td class="details">
+                        <h5>{{this.quantity}} Pcs</h5>
+                    </td>
+                    <td class="number-value">
+                        <h5>{{this.rate}}</h5>
+                    </td>
+                    <td class="number-value">
+                        <h5>{{this.igst_rate}}%</h5>
+                    </td>
+                    <td class="number-value">
+                        <h5>{{this.igst}}</h5>
+                    </td>
+                    <td class="number-value">
+                        <h5>{{this.item_total}}</h5>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+        <div class="invoice-total">
+            <table class="total-table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="height:64px ; background-color: transparent;">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="total-left">
+                        <table class="inside-table">
+                            <tr>
+                                <td>
+                                    <h5>Quantities in Total</h5>
+                                </td>
+                                <td>
+                                    <h6>{{total_quantity}}</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="price-in-words">
+                                    <h5>Total Price In Words</h5>
+                                </td>
+                                <td>
+                                    <h6>{{total_amount_in_words}}</h6>
+                                </td>
+                            </tr>
+                        </table>
+                        <h5 class="thanks">Thanks for your business.</h5>
+                    </td>
+                    <td class="total-right">
+                        <table class="inside-table-right">
+                            <tr>
+                                <td>
+                                    <h5>Sub Total</h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <i class="fa fa-rupee"></i>{{sub_total}}
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>Tax Total</h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <i class="fa fa-rupee"></i>{{tax_total}}
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h5>Shipping Charges</h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        <i class="fa fa-rupee"></i>{{shipping_charges}}
+                                    </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Total</h4>
+                                </td>
+                                <td>
+                                    <h4>
+                                        <i class="fa fa-rupee"></i>{{total}}
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Balance Due</h4>
+                                </td>
+                                <td>
+                                    <h4>
+                                        <i class="fa fa-rupee"></i>{{balance_due}}
+                                    </h4>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="terms">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th colspan="1" style="height:64px ; background-color: transparent;">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="delivery-terms">
+                        <h3>Notes</h3>
+                        <h4>{{notes}}</h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="delivery-terms">
+                        <h3>Terms & Conditions</h3>
+                        <h4>{{terms}}</h4>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="signature">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="height:140px ; background-color: transparent;">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <h1>Authorized Signature</h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {{#if irn_img}}
+        <div class="barcode-section">
+            <div class="barcode-inside">
+                <table style="border-spacing: 0px; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="height:90px ; background-color: transparent;">
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr class="barcode-row">
+                        <td style="padding: 12px 0px 12px 12px;width: 25%;">
+                            <div class="barcode-left">
+                                <img src="{{{irn_img}}}" alt="" class="qr-image">
+                            </div>
+                        </td>
+                        <td class="right-barcode">
+                            <div class="arrange-bottom">
+                                <div class="text-right">
+                                    <table class="footer-table">
+                                        <tr>
+                                            <td>
+                                                <h4> IRN :</h4>
+                                            </td>
+                                            <td>
+                                                <h3>{{irn}}</h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h4>Ack No. :</h4>
+                                            </td>
+                                            <td>
+                                                <h3>{{ack_no}}</h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h4>ACK Date :</h4>
+                                            </td>
+                                            <td>
+                                                <h3>{{ack_date}}</h3>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="bygovt">
+                                    <h2>e-Invoicing detail(s) generated from the Government's e-Invoicing system.
+                                    </h2>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {{/if}}
     </div>
-</div>
+</body>
+
+</html>
