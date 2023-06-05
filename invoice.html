@@ -648,18 +648,26 @@
                     <td class="table-section">
                         <div class="top-left-section">
                             <div class="top-left-heading">
+                                <!-- For Invoice -->
                                 {{#if invoice_number}}
                                 <h1>Tax Invoice</h1>
                                 <h6>Invoice No : {{invoice_number}}</h6>
                                 {{/if}}
+                                <!-- For Performa -->
                                 {{#if order_number}}
                                 <h1>Porforma Invoice</h1>
                                 <h6>Order No : {{order_number}}</h6>
+                                {{/if}}
+                                <!-- For Purchase Order -->
+                                {{#if po_number}}
+                                <h1>Purchase Order</h1>
+                                <h6>P.O No : {{po_number}}</h6>
                                 {{/if}}
                             </div>
                             <div class="top-bottom-heading">
                                 <table class="date-type">
                                     <tr class="table-row">
+                                        <!-- For Invoice -->
                                         {{#if date}}
                                         <td class="left-type">
                                             <h6 class="date-heading">Invoice Date :</h6>
@@ -668,12 +676,22 @@
                                             <h6 class="date-heading">{{date}}</h6>
                                         </td>
                                         {{/if}}
+                                        <!-- For Porforma Invoice -->
                                         {{#if order_date}}
                                         <td class="left-type">
                                             <h6 class="date-heading">Order Date :</h6>
                                         </td>
                                         <td class="date-details">
                                             <h6 class="date-heading">{{order_date}}</h6>
+                                        </td>
+                                        {{/if}}
+                                        <!-- For Purchase Order -->
+                                        {{#if po_date}}
+                                        <td class="left-type">
+                                            <h6 class="date-heading">P.O. Date :</h6>
+                                        </td>
+                                        <td class="date-details">
+                                            <h6 class="date-heading">{{po_date}}</h6>
                                         </td>
                                         {{/if}}
                                         <td class="right-type">
@@ -687,11 +705,20 @@
                                         <span class="straight-line"></span>
                                     </tr>
                                     <tr class="right-detail">
+                                        <!-- For invoice/Porforma -->
+                                        {{#if due_date}}
                                         <td class="left-type">
                                             <h6>Due Date :</h6>
                                         </td>
+                                        {{/if}}
+                                        <!-- For Purchase Order -->
+                                        {{#if po_number}}
+                                        <td class="left-type">
+                                            <h6>Delivery Date :</h6>
+                                        </td>
+                                        {{/if}}
                                         <td class="date-details">
-                                            <h6>{{due_date}}</h6>
+                                            <h6>{{delivery_date}}</h6>
                                         </td>
                                         <td class="right-type">
                                             <h6>P.O. :</h6>
@@ -701,16 +728,22 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <!-- Only For Invoice -->
+                                {{#if payment_mode}}
                                 <div
                                     style="font-weight: 400; font-size: 16px; line-height: 133%; padding-bottom: 10px;">
                                     Payment Mode : {{payment_mode}}
                                 </div>
+                                {{/if}}
+                                {{#if place_of_supply}}
                                 <div class="place-of-supply">
                                     <h4>Place of Supply : {{place_of_supply}}</h4>
                                 </div>
+                                {{/if}}
                             </div>
                         </div>
                     </td>
+                    <!-- Top Right Section -->
                     <td class="table-section">
                         <div class="top-right-section">
                             <div class="company-name-section">
@@ -731,6 +764,7 @@
         <table style="border-spacing: 0px; margin-top: 8px; border-bottom: 1px solid; padding: 0px 64px; padding-bottom: 10px;">
             <tr>
                 <div class="shipping-detail">
+                    <!-- For Simple Invoice -->
                     {{#if customer_details.billing_address}}
                     <td class="table-section2" style="border-right: 1px solid;">
                         <div class="bill-to">
@@ -771,6 +805,8 @@
                         </div>
                     </td>
                     {{/if}}
+                    <!-- /invoices -->
+                    <!-- If transporter is provided in Invoice -->
                     {{#if transporter}}
                     <td class="table-section2" id="ship-to-border" style="padding-right: 64px;">
                         <div class="ship-to">
@@ -790,6 +826,51 @@
                         </div>
                     </td>
                     {{/if}}
+                    <!-- /Tansporter -->
+                    <!-- For Purchase Order -->
+                    {{#if vendor_details.billing_address}}
+                    <td class="table-section2" style="border-right: 1px solid;">
+                        <div class="bill-to">
+                            <div class="billing-heading">
+                                <h4>Vendor Address</h4>
+                            </div>
+                            <div class="billing-address">
+                                <h5>{{vendor_details.billing_address.name}}</h5>
+                                <h6>{{vendor_details.billing_address.street}}</h6>
+                                <h6>{{vendor_details.billing_address.street2}}</h6>
+                                <h6>{{vendor_details.billing_address.city}}</h6>
+                                <h6>{{vendor_details.billing_address.zip}}</h6>
+                                <h6>{{vendor_details.billing_address.state}}</h6>
+                                <h6>{{vendor_details.billing_address.country}}</h6>
+                                {{#if vendor_details.billing_address.gst_no}}
+                                <h6>GSTIN {{vendor_details.billing_address.gst_no}}</h6>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </td>
+                    {{/if}}
+                    {{#if vendor_details.shipping_address}}
+                    <td class="table-section2" style="padding-left: 16px; padding-right: 8px;">
+                        <div class="bill-to">
+                            <div class="billing-heading">
+                                <h4>Deliver To</h4>
+                            </div>
+                            <div class="billing-address">
+                                <h5>{{vendor_details.shipping_address.name}}</h5>
+                                <h6>{{vendor_details.shipping_address.street}}</h6>
+                                <h6>{{vendor_details.shipping_address.street2}}</h6>
+                                <h6>{{vendor_details.shipping_address.city}}</h6>
+                                <h6>{{vendor_details.shipping_address.zip}}</h6>
+                                <h6>{{vendor_details.shipping_address.state}}</h6>
+                                <h6>{{vendor_details.shipping_address.country}}</h6>
+                                {{#if vendor_details.shipping_address.gst_no}}
+                                <h6>GSTIN {{vendor_details.shipping_address.gst_no}}</h6>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </td>
+                    {{/if}}
+                    <!-- Purchase Order end -->
                 </div>
             </tr>
         </table>
@@ -825,26 +906,53 @@
                             &nbsp;
                         </th>
                     </tr>
-                    <!-- <tr class="heading-table">
-                        {{#each table_heading}}
-                        <th>{{name}}</th>
-                        {{/each}}
-                    </tr> -->
                     <tr class="heading-table">
                         <th id="serial-no">#</th>
                         <th>Image</th>
                         <th>Item Name, SKU & Brand</th>
+
                         {{#if hsn_or_sac}}
                         <th>HSN/SAC</th>
                         {{/if}}
+
                         <th>EAN</th>
                         <th>Qty</th>
+                        
+                        {{#if rate}}
                         <th>Rate <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
                         </th>
+                        {{/if}}
+
+                        {{#if mrp}}
+                        <th>MRP <h3>(<i class="fa fa-rupee rupees"></i>)</h3></th>
+                        {{/if}}
+
+                        {{#if purchase_price}}
+                        <th>Purchase Price <h3>(<i class="fa fa-rupee rupees"></i>)</h3></th>
+                        {{/if}}
+
+                        {{#if cgst_rate}}
+                        <th>CGST</th>
+                        {{/if}}
+
+                        {{#if sgst_rate}}
+                        <th>SGST</th>
+                        {{/if}}
+
+                        {{#if igst_rate}}
                         <th>IGST %</th>
+                        {{/if}}
+
+                        {{#if igst}}
                         <th>IGST Amt. <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
                         </th>
-                        <th id="total-heading">Amount <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
+                        {{/if}}
+
+                        {{#if gst}}
+                        <th>GST</th>
+                        {{/if}}
+                        
+                        <th id="total-heading">Item Total <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
                         </th>
                     </tr>
                 </thead>
@@ -853,9 +961,13 @@
                     <td class="details-index">
                         <h5>{{this.index}}</h5>
                     </td>
+
+                    {{#if img_url}}
                     <td class="image-prod">
                         <img src="{{{this.img_url}}}" alt="" class="product-img">
                     </td>
+                    {{/if}}
+
                     <td class="order-name">
                         <div>
                             <h6>
@@ -871,29 +983,73 @@
                         </div>
 
                     </td>
-                    {{#if hsn_or_sac}}
+
                     <td class="details">
                         <h5>{{this.hsn_or_sac}}</h5>
                     </td>
-                    {{/if}}
+
                     <td class="details">
                         <h5>{{this.ean}}</h5>
                     </td>
+
                     <td class="details">
                         <h5>{{this.quantity}} Pcs</h5>
                     </td>
+
+                    {{#if rate}}
                     <td class="number-value">
                         <h5>{{this.rate}}</h5>
                     </td>
+                    {{/if}}
+
+                    {{#if mrp}}
                     <td class="number-value">
-                        <h5>{{this.igst_rate}}%</h5>
+                        <h5>{{this.mrp}}</h5>
                     </td>
+                    {{/if}}
+
+                    {{#if purchase_price}}
+                    <td class="number-value">
+                        <h5>{{this.purchase_price}}</h5>
+                    </td>
+                    {{/if}}
+
+                    {{#if cgst_rate}}
+                    <td class="number-value">
+                        <h5>{{this.cgst_rate}}</h5>
+                    </td>
+                    {{/if}}
+
+                    {{#if sgst_rate}}
+                    <td class="number-value">
+                        <h5>{{this.sgst_rate}}</h5>
+                    </td>
+                    {{/if}}
+
+                    {{#if igst_rate}}
+                    <td class="number-value">
+                        <h5>{{this.igst_rate}}</h5>
+                    </td>
+                    {{/if}}
+
+                    {{#if igst}}
                     <td class="number-value">
                         <h5>{{this.igst}}</h5>
                     </td>
+                    {{/if}}
+
+                    {{#if gst}}
+                    <td class="number-value">
+                        <h5>{{this.gst}}</h5>
+                    </td>
+                    {{/if}}
+
+                    {{#if item_total}}
                     <td class="number-value">
                         <h5>{{this.item_total}}</h5>
                     </td>
+                    {{/if}}
+
                 </tr>
                 {{/each}}
             </table>
