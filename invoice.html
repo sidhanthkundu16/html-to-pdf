@@ -8,15 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet"> -->
     <style>
     </style>
     <title>Invoice</title>
     <style>
-        /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
-
         * {
             margin: 0px;
             padding: 0px;
@@ -59,9 +54,7 @@
         }
 
         .table-section2 {
-            /* border-bottom: 1px solid #000000; */
             padding-bottom: 18px;
-            /* padding-top: 18px; */
             vertical-align: top;
             width: 33.3%;
         }
@@ -192,17 +185,7 @@
         .bill-to {
             box-sizing: border-box;
             gap: 4px;
-            padding-left: 64px;
         }
-
-        /* .billing-address {
-            width: 400px;
-        } */
-
-        /* .shipping-address {
-            width: 400px;
-        } */
-
         .billing-address h5 {
             font-weight: 600;
             font-size: 16px;
@@ -402,7 +385,6 @@
         }
 
         .order-detail .elements td {
-            /* text-align: left; */
             vertical-align: top;
             border-right: 1px solid #000000;
             border-bottom: 1px solid #000000;
@@ -412,7 +394,6 @@
             border-right: 1px solid #000000 !important;
         }
 
-        /* Total Summary */
         .container .invoice-total {
             padding: 0px 63.5px;
             page-break-inside: avoid;
@@ -535,20 +516,10 @@
             border-top: 1px solid #000000;
         }
 
-        /* Barcode-section */
         .container .barcode-section {
             padding: 0px 64px 0px 64px;
         }
 
-        /* .container .barcode-section .barcode-inside {
-            background: #f8f9fa;
-            border: 1px solid #f1f3f5;
-            border-radius: 4px;
-            box-sizing: border-box;
-            padding: 13px 0px 13px 13px;
-            align-items: center;
-            gap: 16px;
-        } */
 
         .barcode-inside .text-right {
             gap: 16px;
@@ -677,18 +648,34 @@
                     <td class="table-section">
                         <div class="top-left-section">
                             <div class="top-left-heading">
+                                {{#if invoice_number}}
                                 <h1>Tax Invoice</h1>
                                 <h6>Invoice No : {{invoice_number}}</h6>
+                                {{/if}}
+                                {{#if order_number}}
+                                <h1>Porforma Invoice</h1>
+                                <h6>Order No : {{order_number}}</h6>
+                                {{/if}}
                             </div>
                             <div class="top-bottom-heading">
                                 <table class="date-type">
                                     <tr class="table-row">
+                                        {{#if date}}
                                         <td class="left-type">
                                             <h6 class="date-heading">Invoice Date :</h6>
                                         </td>
                                         <td class="date-details">
                                             <h6 class="date-heading">{{date}}</h6>
                                         </td>
+                                        {{/if}}
+                                        {{#if order_date}}
+                                        <td class="left-type">
+                                            <h6 class="date-heading">Order Date :</h6>
+                                        </td>
+                                        <td class="date-details">
+                                            <h6 class="date-heading">{{order_date}}</h6>
+                                        </td>
+                                        {{/if}}
                                         <td class="right-type">
                                             <h6 class="date-heading">Terms :</h6>
                                         </td>
@@ -741,10 +728,11 @@
                 </tr>
             </div>
         </table>
-        <table style="border-spacing: 0px; margin-top: 8px;">
+        <table style="border-spacing: 0px; margin-top: 8px; border-bottom: 1px solid; padding: 0px 64px; padding-bottom: 10px;">
             <tr>
                 <div class="shipping-detail">
-                    <td class="table-section2">
+                    {{#if customer_details.billing_address}}
+                    <td class="table-section2" style="border-right: 1px solid;">
                         <div class="bill-to">
                             <div class="billing-heading">
                                 <h4>Bill To</h4>
@@ -757,11 +745,15 @@
                                 <h6>{{customer_details.billing_address.zip}}</h6>
                                 <h6>{{customer_details.billing_address.state}}</h6>
                                 <h6>{{customer_details.billing_address.country}}</h6>
+                                {{#if customer_details.billing_address.gst_no}}
                                 <h6>GSTIN {{customer_details.billing_address.gst_no}}</h6>
+                                {{/if}}
                             </div>
                         </div>
                     </td>
-                    <td class="table-section2" id="ship-to-border" style="padding-right: 8px;">
+                    {{/if}}
+                    {{#if customer_details.shipping_address}}
+                    <td class="table-section2" style="padding-left: 16px; padding-right: 8px;">
                         <div class="ship-to">
                             <div class="shipping-heading">
                                 <h4>Ship To</h4>
@@ -778,6 +770,8 @@
                             </div>
                         </div>
                     </td>
+                    {{/if}}
+                    {{#if transporter}}
                     <td class="table-section2" id="ship-to-border" style="padding-right: 64px;">
                         <div class="ship-to">
                             <div class="shipping-heading">
@@ -785,7 +779,9 @@
                             </div>
                             <div class="shipping-address">
                                 <h5>Transporter Name : {{transporter.name}}</h5>
+                                {{#if vehicle_number}}
                                 <h6>Vehicle Number : {{transporter.vehicle_number}}</h6>
+                                {{/if}}
                                 <h6>Dispatch Doc Number (AWB) : {{transporter.dispatch_number}}</h6>
                                 <h6>Eway Bill No : {{transporter.eway_bill}}</h6>
                                 <h6>No. of Boxes : {{transporter.box_number}}</h6>
@@ -793,11 +789,12 @@
                             </div>
                         </div>
                     </td>
+                    {{/if}}
                 </div>
             </tr>
         </table>
-
-        <div style="border-top: 1px solid #000000; 
+        {{#if boxes}}
+        <div style=" 
             width: 100%; 
             margin-top: 8px; 
             padding: 8px 64px; 
@@ -813,12 +810,13 @@
                 {{#each boxes}}
                 <div>
                     <h2 style="font-weight: 500; font-size: 14px; line-height: 19px; color: #11181C;">
-                        {{length}}(L) × {{breadth}}(B) × {{height}}(H) = 999Boxes
+                        {{boxes}} Boxes : {{length}} × {{breadth}} × {{height}} cm<sup>3</sup>
                     </h2>
                 </div>
                 {{/each}}
             </div>
         </div>
+        {{/if}}
         <div class="order-detail">
             <table>
                 <thead>
@@ -827,11 +825,18 @@
                             &nbsp;
                         </th>
                     </tr>
+                    <!-- <tr class="heading-table">
+                        {{#each table_heading}}
+                        <th>{{name}}</th>
+                        {{/each}}
+                    </tr> -->
                     <tr class="heading-table">
                         <th id="serial-no">#</th>
                         <th>Image</th>
                         <th>Item Name, SKU & Brand</th>
+                        {{#if hsn_or_sac}}
                         <th>HSN/SAC</th>
+                        {{/if}}
                         <th>EAN</th>
                         <th>Qty</th>
                         <th>Rate <h3>(<i class="fa fa-rupee rupees"></i>)</h3>
@@ -866,9 +871,11 @@
                         </div>
 
                     </td>
+                    {{#if hsn_or_sac}}
                     <td class="details">
                         <h5>{{this.hsn_or_sac}}</h5>
                     </td>
+                    {{/if}}
                     <td class="details">
                         <h5>{{this.ean}}</h5>
                     </td>
@@ -901,7 +908,7 @@
                     </tr>
                 </thead>
                 <tr>
-                    <td class="total-left">
+                    <td class="total-left" style="vertical-align: top;">
                         <table class="inside-table">
                             <tr>
                                 <td>
