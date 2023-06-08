@@ -2,7 +2,7 @@
 
 Generate a simple PDF invoice from HTML using [puppeteer](https://github.com/GoogleChrome/puppeteer) & [handlebars](http://handlebarsjs.com/)
 
-![Invoice](https://raw.githubusercontent.com/chuongtrh/html_to_pdf/master/screenshot/invoice.png)
+
 
 ## Introduce
 
@@ -114,7 +114,6 @@ Using handlebars to check param `isWatermark`
 ```
 
 Change `isWatermark: true` and run `node pdf.js` again
-![Invoice with stamp paid watermark](https://raw.githubusercontent.com/chuongtrh/html_to_pdf/master/screenshot/invoice_paid.png)
 
 ## License
 
